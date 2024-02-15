@@ -41,7 +41,7 @@ def get_class_reg_train_val_test_splits(
     If fixed_test_set_index is not None,
     use the index to perform the test split
     """
-    if should_stratify and label_rows.dtype == np.object:
+    if should_stratify and label_rows.dtype == np.object_:
         from sklearn.preprocessing import LabelEncoder
         # Encode the label column
         label_rows = LabelEncoder().fit_transform(label_rows)
