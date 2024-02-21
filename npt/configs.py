@@ -37,7 +37,7 @@ def build_parser():
         '--data_path', type=str, default='data',
         help='Path of data')
     parser.add_argument(
-        '--data_set', type=str, default='breast-cancer',
+        '--data_set', type=str, default='cross-project-defect-df',
         help=f'Currently supported are breast-cancer, poker-hand, '
         f'higgs, epsilon, forest-cover, boston-housing, mnist, yacht, '
         f'concrete, income, protein, cifar10.')
