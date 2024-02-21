@@ -37,10 +37,10 @@ def build_parser():
         '--data_path', type=str, default='data',
         help='Path of data')
     parser.add_argument(
-        '--data_set', type=str, default='cross-project-defect-df',
+        '--data_set', type=str, default='breast-cancer',
         help=f'Currently supported are breast-cancer, poker-hand, '
         f'higgs, epsilon, forest-cover, boston-housing, mnist, yacht, '
-        f'concrete, income, protein, cifar10.')
+        f'concrete, income, protein, cifar10, cross-project-defect.')
     parser.add_argument(
         '--data_loader_nprocs', type=int, default=0,
         help='Number of processes to use in data loading. Specify -1 to use '
