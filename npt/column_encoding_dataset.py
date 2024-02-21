@@ -43,7 +43,8 @@ DATASET_NAME_TO_DATASET_MAP = {
     'breast-cancer-debug': BreastCancerDebugClassificationDataset,
     'debug': DebugDataset,
     'cifar10': CIFAR10Dataset,
-    'kick': KickDataset
+    'kick': KickDataset,
+    'cross-project-defect-df': CrossProjectDefectDataset
 }
 
 # Preprocessed separately for data augmentation
