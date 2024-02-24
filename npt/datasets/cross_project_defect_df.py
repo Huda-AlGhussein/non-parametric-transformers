@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1r-d3LrFHOlt21VnWSsuaHKkDTfpLGX3T
 """
 
-!git clone https://github.com/Huda-AlGhussein/non-parametric-transformers
+#!git clone https://github.com/Huda-AlGhussein/non-parametric-transformers
 
 # Commented out IPython magic to ensure Python compatibility.
 # %cd /content/non-parametric-transformers
