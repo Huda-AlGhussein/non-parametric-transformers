@@ -22,6 +22,7 @@ from npt.datasets.mnist import MNISTDataset
 from npt.datasets.poker_hand import PokerHandDataset
 from npt.datasets.protein import ProteinDataset
 from npt.datasets.yacht import YachtDataset
+from npt.datasets.cross_project_defect_df
 from npt.utils.cv_utils import (
     get_class_reg_train_val_test_splits, get_n_cv_splits)
 from npt.utils.encode_utils import encode_data_dict
