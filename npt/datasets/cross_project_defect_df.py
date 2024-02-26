@@ -86,3 +86,4 @@ class CrossProjectDefectDataset(BaseDataset):
         # TODO: add missing entries to sanity check
         self.missing_matrix = np.zeros((self.N, self.D), dtype=np.bool_)
         self.is_data_loaded = True
+        self.tmp_file_or_dir_names = ['/content/drive/My Drive/temp_dataset_files']
