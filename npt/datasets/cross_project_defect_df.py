@@ -81,7 +81,7 @@ class CrossProjectDefectDataset(BaseDataset):
         self.cat_target_cols = []
 
         self.num_features = list(range(2, self.D - 1))
-        self.cat_features = [0,1,2]
+        self.cat_features = []
 
         # TODO: add missing entries to sanity check
         self.missing_matrix = np.zeros((self.N, self.D), dtype=np.bool_)
