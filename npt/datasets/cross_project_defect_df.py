@@ -76,12 +76,13 @@ class CrossProjectDefectDataset(BaseDataset):
         self.N = self.data_table.shape[0]
         self.D = self.data_table.shape[1]
 
-        # Target col is the last feature
-        self.num_target_cols = [self.D - 1]
-        self.cat_target_cols = []
 
-        self.num_features = list(range(2, self.D - 1))
-        self.cat_features = []
+        # Target col is the last feature
+        self.num_target_cols = []
+        self.cat_target_cols = [self.D - 1]
+
+        self.num_features = list(range(3, self.D - 2))
+        self.cat_features = [self.D - 1]
 
         # TODO: add missing entries to sanity check
         self.missing_matrix = np.zeros((self.N, self.D), dtype=np.bool_)
