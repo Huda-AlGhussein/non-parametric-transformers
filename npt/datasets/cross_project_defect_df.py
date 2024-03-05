@@ -15,7 +15,7 @@ Original file is located at
 from google.colab import drive
 drive.mount('/content/drive')
 
-path_to_data= '/content/drive/MyDrive/Software Defect Detection - Phase 4 /defect_prediction_data.csv'
+path_to_data= '/content/drive/MyDrive/Software Defect Detection - Phase 4 /cross-project-defect-df.csv'
 
 from pathlib import Path
 
