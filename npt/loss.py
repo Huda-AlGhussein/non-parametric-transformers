@@ -517,7 +517,7 @@ class Loss:
             auroc = 0
         else:
             try:
-                auroc = lightning_auroc(preds[:, 1], true)
+                auroc = lightning_auroc(preds[:, 1], true, task= 'binary')
             except ValueError as e:
                 print('AUROC computation failure.')
                 print(e)
