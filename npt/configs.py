@@ -40,7 +40,7 @@ def build_parser():
         '--data_set', type=str, default='breast-cancer',
         help=f'Currently supported are breast-cancer, poker-hand, '
         f'higgs, epsilon, forest-cover, boston-housing, mnist, yacht, '
-        f'concrete, income, protein, cifar10, cross-project-defect')
+        f'concrete, income, protein, cifar10, cross-project-defect-df')
     parser.add_argument(
         '--data_loader_nprocs', type=int, default=0,
         help='Number of processes to use in data loading. Specify -1 to use '
