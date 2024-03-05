@@ -65,7 +65,7 @@ class CrossProjectDefectDataset(BaseDataset):
         data_home = path_to_data
         df = pd.read_csv(path_to_data, index_col=0)
         df= df.drop('bugs', axis=1)
-        df= df.drop('Project', 'Version', 'Class',  axis= 1)
+        df= df.drop(['Project', 'Version', 'Class'],  axis= 1)
         x = df
 
         if isinstance(x, np.ndarray):
