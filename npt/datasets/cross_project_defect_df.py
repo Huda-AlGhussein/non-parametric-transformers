@@ -13,9 +13,9 @@ Original file is located at
 # %cd /content/non-parametric-transformers
 
 from google.colab import drive
-drive.mount('/content/drive')
+# drive.mount('/content/drive')
 
-path_to_data= '/content/drive/MyDrive/Software Defect Detection - Phase 4 /cross-project-defect-df.csv'
+path_to_data= '/content/defect_prediction_data.csv'
 
 from pathlib import Path
 
