@@ -9,10 +9,9 @@ Original file is located at
 
 #!git clone https://github.com/Huda-AlGhussein/non-parametric-transformers
 
-# Commented out IPython magic to ensure Python compatibility.
 # %cd /content/non-parametric-transformers
 
-from google.colab import drive
+#from google.colab import drive
 # drive.mount('/content/drive')
 
 path_to_data= '/content/defect_prediction_data.csv'
@@ -24,8 +23,6 @@ import pandas as pd
 from sklearn.datasets import fetch_openml
 
 from npt.datasets.base import BaseDataset
-
-"""#Repository code"""
 
 class CrossProjectDefectDataset(BaseDataset):
     def __init__(self, c):
@@ -88,4 +85,4 @@ class CrossProjectDefectDataset(BaseDataset):
         # TODO: add missing entries to sanity check
         self.missing_matrix = np.zeros((self.N, self.D), dtype=np.bool_)
         self.is_data_loaded = True
-        self.tmp_file_or_dir_names = ['/content/drive/My Drive/temp_dataset_files']
+        #self.tmp_file_or_dir_names = ['/content/drive/My Drive/temp_dataset_files']
