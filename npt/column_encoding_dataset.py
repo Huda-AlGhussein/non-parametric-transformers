@@ -7,7 +7,6 @@ import torch
 
 from npt.batch_dataset import NPTBatchDataset
 from npt.datasets.base import BaseDataset
-from npt.datasets.boston_housing import BostonHousingDataset
 from npt.datasets.breast_cancer import (
     BreastCancerClassificationDataset, BreastCancerDebugClassificationDataset)
 from npt.datasets.cifar10 import CIFAR10Dataset
@@ -35,7 +34,6 @@ DATASET_NAME_TO_DATASET_MAP = {
     'poker-hand': PokerHandDataset,
     'higgs': HiggsClassificationDataset,
     'forest-cover': ForestCoverClassificationDataset,
-    'boston-housing': BostonHousingDataset,
     'mnist': MNISTDataset,
     'yacht': YachtDataset,
     'concrete': ConcreteDataset,
