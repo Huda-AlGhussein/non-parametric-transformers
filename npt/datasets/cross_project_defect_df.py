@@ -14,7 +14,8 @@ Original file is located at
 #from google.colab import drive
 # drive.mount('/content/drive')
 
-path_to_data= '/content/defect_prediction_data.csv'
+#path_to_data= '/content/defect_prediction_data.csv' #on colab
+path_to_data= 'C:\Users\junior_team\miniconda3\envs\npt' #on machine
 
 from pathlib import Path
 
