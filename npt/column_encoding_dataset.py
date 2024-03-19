@@ -13,13 +13,13 @@ from npt.datasets.cifar10 import CIFAR10Dataset
 from npt.datasets.concrete import ConcreteDataset
 from npt.datasets.debug import DebugDataset
 #from npt.datasets.forest_cover import ForestCoverClassificationDataset
-from npt.datasets.higgs import HiggsClassificationDataset
+#from npt.datasets.higgs import HiggsClassificationDataset
 from npt.datasets.image_utils import load_image_dataloaders
 from npt.datasets.income import IncomeDataset
 from npt.datasets.kick import KickDataset
 from npt.datasets.mnist import MNISTDataset
-from npt.datasets.poker_hand import PokerHandDataset
-from npt.datasets.protein import ProteinDataset
+#from npt.datasets.poker_hand import PokerHandDataset
+#from npt.datasets.protein import ProteinDataset
 from npt.datasets.yacht import YachtDataset
 from npt.datasets.cross_project_defect_df import CrossProjectDefectDataset
 from npt.utils.cv_utils import (
