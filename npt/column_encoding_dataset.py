@@ -7,8 +7,8 @@ import torch
 
 from npt.batch_dataset import NPTBatchDataset
 from npt.datasets.base import BaseDataset
-from npt.datasets.breast_cancer import (
-    BreastCancerClassificationDataset, BreastCancerDebugClassificationDataset)
+#from npt.datasets.breast_cancer import (
+  #  BreastCancerClassificationDataset, BreastCancerDebugClassificationDataset)
 from npt.datasets.cifar10 import CIFAR10Dataset
 from npt.datasets.concrete import ConcreteDataset
 from npt.datasets.debug import DebugDataset
