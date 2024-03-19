@@ -30,16 +30,16 @@ from npt.utils.preprocess_utils import (
     get_matrix_from_rows)
 
 DATASET_NAME_TO_DATASET_MAP = {
-    'breast-cancer': BreastCancerClassificationDataset,
-    'poker-hand': PokerHandDataset,
-    'higgs': HiggsClassificationDataset,
-    'forest-cover': ForestCoverClassificationDataset,
+    #'breast-cancer': BreastCancerClassificationDataset,
+    #'poker-hand': PokerHandDataset,
+   # 'higgs': HiggsClassificationDataset,
+    #'forest-cover': ForestCoverClassificationDataset,
     'mnist': MNISTDataset,
     'yacht': YachtDataset,
     'concrete': ConcreteDataset,
     'income': IncomeDataset,
-    'protein': ProteinDataset,
-    'breast-cancer-debug': BreastCancerDebugClassificationDataset,
+    #'protein': ProteinDataset,
+    #'breast-cancer-debug': BreastCancerDebugClassificationDataset,
     'debug': DebugDataset,
     'cifar10': CIFAR10Dataset,
     'kick': KickDataset,
