@@ -12,7 +12,7 @@ from npt.datasets.base import BaseDataset
 from npt.datasets.cifar10 import CIFAR10Dataset
 from npt.datasets.concrete import ConcreteDataset
 from npt.datasets.debug import DebugDataset
-from npt.datasets.forest_cover import ForestCoverClassificationDataset
+#from npt.datasets.forest_cover import ForestCoverClassificationDataset
 from npt.datasets.higgs import HiggsClassificationDataset
 from npt.datasets.image_utils import load_image_dataloaders
 from npt.datasets.income import IncomeDataset
