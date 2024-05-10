@@ -16,7 +16,7 @@ Original file is located at
 
 #path_to_data= '/content/defect_prediction_data.csv' #on colab
 #path_to_data= 'C:\\Users\\OpenU\\anaconda3\\envs\\npt\\defect_prediction_data.csv'#conda environment
-path_to_data= 'C:\\Users\\OpenU\\Desktop\\non-parametric-transformers'
+path_to_data= 'C:\\Users\\OpenU\\Desktop\\non-parametric-transformers\\defect_prediction_data.csv'
 
 from pathlib import Path
 
