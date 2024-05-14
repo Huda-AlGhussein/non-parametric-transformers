@@ -26,6 +26,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 class Lookahead(Optimizer):
     def __init__(self, base_optimizer, alpha=0.5, k=6):
+        super().__init__()
         if not 0.0 <= alpha <= 1.0:
             raise ValueError(f'Invalid slow update rate: {alpha}')
         if not 1 <= k:
