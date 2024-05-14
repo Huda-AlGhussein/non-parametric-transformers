@@ -26,7 +26,6 @@ from torch.optim.optimizer import Optimizer
 from collections import defaultdict
 
 class Lookahead(Optimizer):
-    def __init__(self, base_optimizer,alpha=0.5, k=6):
     def __init__(self, base_optimizer, alpha=0.5, k=6):
         if not 0.0 <= alpha <= 1.0:
             raise ValueError(f'Invalid slow update rate: {alpha}')
