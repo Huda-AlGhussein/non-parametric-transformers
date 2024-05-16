@@ -31,6 +31,7 @@ class Lookahead(Optimizer):
             raise ValueError(f'Invalid slow update rate: {alpha}')
         if not 1 <= k:
             raise ValueError(f'Invalid lookahead steps: {k}')
+        self._optimizer_load_state_dict_pre_hooks = OrderedDict()
         self.optimizer = base_optimizer
         self.param_groups = self.optimizer.param_groups
         self.alpha = alpha
