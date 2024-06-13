@@ -12,7 +12,7 @@ class MyModel(nn.Module):
     def __init__(self):
         super(MyModel, self).__init__()
         # Define layers
-        self.fc = nn.Linear(26, 1)  # Example layer
+        self.fc = nn.Linear(26, 1)  # 26 features
 
     def forward(self, x):
         return self.fc(x)
