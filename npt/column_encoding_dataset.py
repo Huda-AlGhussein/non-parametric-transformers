@@ -68,6 +68,7 @@ class ColumnEncodingDataset:
     Tuple of (row_independent_inference, mode) jointly determines
     batching strategy for NPT model.
     """
+
     def __init__(self, c, device=None):
         super(ColumnEncodingDataset).__init__()
 
@@ -83,6 +84,7 @@ class ColumnEncodingDataset:
         try:
             self._dataset = DATASET_NAME_TO_DATASET_MAP[
                 self.c.data_set](self.c)  # type: BaseDataset
+            print(self._dataset)
         except KeyError:
             raise NotImplementedError(
                 f'Have not implemented dataset {self.c.data_set}')
@@ -567,6 +569,7 @@ class ColumnEncodingDataset:
                 new_train_val_test_indices=new_train_val_test_indices,
                 row_boundaries=row_boundaries,
                 fixed_test_set_index=fixed_test_set_index)
+
 
             yield data_dict
 

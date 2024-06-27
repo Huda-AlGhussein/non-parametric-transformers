@@ -61,11 +61,14 @@ class CrossProjectDefectDataset(BaseDataset):
         """
 
         # Load data from drive
-        data_home = path_to_data
-        df = pd.read_csv(path_to_data, index_col=0)
+        #data_home = path_to_data
+        data_home = Path(self.c.custom_data_path)
+        df = pd.read_csv(data_home, index_col=0)
         df= df.drop('bugs', axis=1)
         df= df.drop(['Project', 'Version', 'Class'],  axis= 1)
         x = df
+
+
 
         if isinstance(x, np.ndarray):
             pass
@@ -87,4 +90,5 @@ class CrossProjectDefectDataset(BaseDataset):
         # TODO: add missing entries to sanity check
         self.missing_matrix = np.zeros((self.N, self.D), dtype=np.bool_)
         self.is_data_loaded = True
+        print(self.N)
         #self.tmp_file_or_dir_names = ['/content/drive/My Drive/temp_dataset_files']

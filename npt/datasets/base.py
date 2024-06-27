@@ -45,6 +45,7 @@ class BaseDataset(ABC):
 
     def get_data_dict(self, force_disable_auroc=None):
         if not self.is_data_loaded:
+            print('load dataset')
             self.load()
 
         self.auroc_setting = self.use_auroc(force_disable_auroc)

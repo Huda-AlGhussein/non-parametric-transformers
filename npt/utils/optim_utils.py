@@ -17,6 +17,7 @@ https://arxiv.org/abs/1907.08610
 
 import itertools as it
 from torch.optim import Optimizer, Adam
+from collections import OrderedDict
 """ Lookahead Optimizer Wrapper.
 Implementation modified from: https://github.com/alphadl/lookahead.pytorch
 Paper: `Lookahead Optimizer: k steps forward, 1 step back` - https://arxiv.org/abs/1907.08610
@@ -31,6 +32,7 @@ class Lookahead(Optimizer):
             raise ValueError(f'Invalid slow update rate: {alpha}')
         if not 1 <= k:
             raise ValueError(f'Invalid lookahead steps: {k}')
+        self._optimizer_load_state_dict_pre_hooks = OrderedDict()
         self.optimizer = base_optimizer
         self.param_groups = self.optimizer.param_groups
         self.alpha = alpha

@@ -316,7 +316,7 @@ class NPTBatchDataset(torch.utils.data.IterableDataset):
                 extra_args['train_indices'] = mode_indices[0]
 
             stratified_sampler = StratifiedIndexSampler(
-                y=mode_indicators, n_splits=n_splits, shuffle=True,
+                y=mode_indicators, n_splits=n_splits, shuffle=False,
                 **extra_args)
 
         # Concatenate together mode_indices (which index into our matrices)
@@ -405,9 +405,9 @@ class NPTBatchDataset(torch.utils.data.IterableDataset):
             row_index_order, batch_sizes = (
                 stratified_sampler.get_stratified_test_array(row_index_order))
             self.batch_sizes = batch_sizes
-        else:
-            np.random.shuffle(row_index_order)
-            self.batch_sizes = None
+        #else:
+        #    np.random.shuffle(row_index_order)
+        #    self.batch_sizes = None
 
         # Construct tensor copies with the specified row index order
         mode_mask_matrix, mode_bert_mask_matrix = self.mode_masks[
