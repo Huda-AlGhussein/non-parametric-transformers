@@ -217,8 +217,6 @@ with torch.no_grad():
         outputs_target = outputs[-1] 
         print(ground_truth_tensors_target)
 
-        #print(ground_truth_tensors.shape)
-        #print(outputs_target.shape)
         long_data = torch.argmax(torch_cast_to_dtype(obj=ground_truth_tensors_target,dtype_name=c.data_dtype),
                                  dim=1)
         #print(long_data.shape)
