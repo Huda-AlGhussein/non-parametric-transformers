@@ -11,6 +11,10 @@ from sklearn.neural_network import MLPClassifier, MLPRegressor
 from xgboost import XGBClassifier, XGBRegressor
 
 from baselines.utils.hyper_tuning_utils import modified_tabnet
+# Extra Models
+from C45 import C45Classifier # https://pypi.org/project/c45-decision-tree/
+from baselines.smo_optimizer import SVM # https://github.com/itsikad/svm-smo
+
 
 SKLEARN_CLASSREG_MODELS = {
     'XGBoost': {
@@ -39,6 +43,12 @@ SKLEARN_CLASSREG_MODELS = {
     'KNN': {
         'reg': KNeighborsRegressor,
         'class': KNeighborsClassifier
+    },
+    'SVM': {
+        'class': SVM
+    },
+    'C45': {
+        'class': C45Classifier
     },
 }
 
@@ -167,7 +177,7 @@ HIGGS_MLP_HYPERS = {
 
 # Models for which we have a different hyperparameter config sweep
 # based on the size of the data.
-SPLIT_HYPER_MODEL_NAMES = ['MLP', 'TabNet', 'KNN']
+SPLIT_HYPER_MODEL_NAMES = ['MLP', 'TabNet', 'KNN',"SVM","C45"]
 SMALL_DATASETS = [
         'boston-housing', 'yacht', 'concrete', 'breast-cancer',
         'energy-efficiency']
@@ -184,7 +194,7 @@ def dataset_to_hypers(model_name, dataset_name):
             f'{dataset_name} and model {model_name}. No call to '
             f'`dataset_to_hypers` needed.')
 
-    if model_name == 'MLP':
+    if model_name == 'MLP' or model_name == "SVM" or model_name == "C45":
         if dataset_name == 'higgs':
             print('Using Higgs MLP hypers.')
             return HIGGS_MLP_HYPERS
@@ -453,4 +463,8 @@ SKLEARN_CLASSREG_HYPERS = {
     'KNN': {
         'reg': dataset_to_hypers,
         'class': dataset_to_hypers},
+    'SVM': {
+        'class': dataset_to_hypers,
+        'reg': dataset_to_hypers,
+    },
 }

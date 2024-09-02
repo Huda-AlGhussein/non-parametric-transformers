@@ -305,7 +305,7 @@ class BaselineHyperTuner:
 
         # For MLP, TabNet, we have different sweep sets based on size of
         # the data.
-        if self.model_name in ['MLP', 'TabNet', 'KNN']:
+        if self.model_name in ['MLP', 'TabNet', 'KNN','SVM','C45' ]:
             self.model_hypers = self.model_hypers(
                 self.model_name, self.c.data_set)
 
