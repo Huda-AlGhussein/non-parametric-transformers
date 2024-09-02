@@ -64,6 +64,39 @@ SKLEARN_CLASSREG_MODELS = {
 
 DEFAULT_TARGET_COL = "label"
 DEFAULT_INPUT_FEATURES = lambda x: x[4:-1]
+HYPER_PARAMS_SEARCH = {
+    'RandomForest':
+        {
+            'n_estimators': [100, 200, 300],
+            'max_depth': [5, 10, 15],
+            'min_samples_split': [2, 5, 10],
+            'criterion': ['gini', 'entropy']
+        },
+    'NaiveBayes':
+        {
+            'var_smoothing': [1e-9, 1e-8, 1e-7]
+        },
+    'SVM':
+        {
+            'C': [1, 10, 100],
+            'gamma': ['scale', 'auto'],
+            'kernel': ['rbf', 'linear', 'poly']
+        },
+    'C45':
+        {
+            'min_samples_split': [2, 5, 10],
+            'min_samples_leaf': [1, 2, 5],
+            'criterion': ['gini', 'entropy']
+        },
+    'MLP':
+        {
+            'hidden_layer_sizes': [(64,), (128,), (64, 64)],
+            'activation': ['relu', 'tanh'],
+            'solver': ['adam', 'sgd'],
+            'alpha': [0.0001, 0.001, 0.01]
+        }
+}
+
 import wandb
 from datetime import datetime
 
@@ -157,9 +190,9 @@ def evaluate_model(model, X_test, y_test, task_type):
     
     return metrics
 
-def perform_grid_search(model, X_train, y_train, param_grid):
+def perform_grid_search(model, X_train, y_train, param_grid, task_type):
     """Perform grid search for hyperparameter tuning."""
-    grid_search = GridSearchCV(model, param_grid, cv=5, scoring='accuracy' if isinstance(model, (RandomForestClassifier, XGBClassifier, GradientBoostingClassifier)) else 'neg_mean_squared_error')
+    grid_search = GridSearchCV(model, param_grid, cv=5, scoring='accuracy' if task_type=='class' else 'neg_mean_squared_error')
     grid_search.fit(X_train, y_train)
     return grid_search.best_params_
 
@@ -187,11 +220,14 @@ def process_project(project_folder, model_name, task_type, target_col=DEFAULT_TA
     
     if perform_grid_search:
         # Define a simple param_grid for demonstration
-        param_grid = {
-            'n_estimators': [100, 200],
-            'max_depth': [5, 10]
-        }
-        best_params = perform_grid_search(model, X_train, y_train, param_grid)
+        if model_name in HYPER_PARAMS_SEARCH:
+            param_grid = HYPER_PARAMS_SEARCH[model_name]
+        else:
+            param_grid = {
+                'n_estimators': [100, 200],
+                'max_depth': [5, 10]
+            }
+        best_params = perform_grid_search(model, X_train, y_train, param_grid, task_type)
         model = train_model(model, X_train, y_train, best_params)
     else:
         model = train_model(model, X_train, y_train)
@@ -249,7 +285,7 @@ def main(base_folder, model_name, task_type, perform_grid_search=False, specific
             if os.path.isdir(project_folder):
                 print(f"Processing project: {project}")
                 model, test_results = process_project(project_folder,
-                model_name, task_type,'bugs', perform_grid_search)
+                model_name, task_type, perform_grid_search=perform_grid_search)
                 results[specific_project] = {
                     'model': model,
                     'test_results': test_results
@@ -271,9 +307,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    results = main(args.base_folder, args.model, args.task, args.grid_search,args.project)
-    if args.wand != None:
+    if args.wandb:
         use_wandb=True
+    results = main(args.base_folder, args.model, args.task, args.grid_search,args.project)
     for project, data in results.items():
         print(f"\nResults for project: {project}")
         for test_file, performance in data['test_results'].items():

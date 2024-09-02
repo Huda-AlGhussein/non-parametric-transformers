@@ -342,7 +342,7 @@ class Trainer:
                 collate_fn=collate_with_pre_batching,
                 **extra_args)
             #batch_iter = tqdm(
-             #   batch_iter, desc='Batch') if self.c.verbose else batch_iter
+             #   batch_iter, desc='Batch') if self.c.verbose else batch_iter\
 
         if (eval_model and self.c.debug_eval_row_interactions
                 and epoch == 2 and dataset_mode in {'test'}):
