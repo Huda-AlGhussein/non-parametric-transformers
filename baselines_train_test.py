@@ -17,12 +17,13 @@ from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.neural_network import MLPClassifier, MLPRegressor
 from xgboost import XGBClassifier, XGBRegressor
 
-# Assuming these are available in your environment
 from baselines.utils.hyper_tuning_utils import modified_tabnet
-from C45 import C45Classifier
+from baselines.c45 import C45
 from baselines.smo_optimizer import SVM
+from sklearn import svm
+from sklearn.calibration import CalibratedClassifierCV
 
-
+MAX_ITER = 1000
 SKLEARN_CLASSREG_MODELS = {
     'XGBoost': {
         'reg': XGBRegressor,
@@ -52,10 +53,11 @@ SKLEARN_CLASSREG_MODELS = {
         'class': KNeighborsClassifier
     },
     'SVM': {
-        'class': SVM
+        'class': lambda verbose: CalibratedClassifierCV(
+            svm.LinearSVC(verbose=verbose,C=0.1,max_iter=MAX_ITER))  #svm.SVC(kernel='linear',probability=True,verbose=True) # #SVM
     },
     'C45': {
-        'class': C45Classifier
+        'class': lambda verbose: C45()
     },
     'NaiveBayes': {
         'class': GaussianNB
@@ -78,9 +80,9 @@ HYPER_PARAMS_SEARCH = {
         },
     'SVM':
         {
-            'C': [1, 10, 100],
+            'C': [1e-3, 1e-2, 0.1, 1, 10, 100],
             'gamma': ['scale', 'auto'],
-            'kernel': ['rbf', 'linear', 'poly']
+            'kernel': [ 'linear']
         },
     'C45':
         {
@@ -207,18 +209,21 @@ def evaluate_on_test_files(model, test_folder, task_type):
             results[file] = performance
     return results
 
-def process_project(project_folder, model_name, task_type, target_col=DEFAULT_TARGET_COL, perform_grid_search=False):
+def process_project(project_folder, model_name, task_type, target_col=DEFAULT_TARGET_COL, grid_search=False):
     """Process a single project folder."""
     train_file = [f for f in os.listdir(project_folder) if f.endswith('.csv')][0]
     train_data = load_data(os.path.join(project_folder, train_file))
     
     X_train, y_train, scaler = preprocess_data(train_data, target_col)
     #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
+    # experiment with smaller data
+    X_train = X_train[:10000,:]
+    y_train = y_train[:10000]
     model_class = SKLEARN_CLASSREG_MODELS[model_name][task_type]
-    model = model_class()
-    
-    if perform_grid_search:
+    model = model_class(verbose=True)
+    #print(f'ROC_AUC: {roc_auc_score(y_train, model.predict_proba(X_train)[:, 1])}')
+
+    if grid_search:
         # Define a simple param_grid for demonstration
         if model_name in HYPER_PARAMS_SEARCH:
             param_grid = HYPER_PARAMS_SEARCH[model_name]
@@ -253,7 +258,7 @@ def process_project(project_folder, model_name, task_type, target_col=DEFAULT_TA
     
     return model, test_results
 
-def main(base_folder, model_name, task_type, perform_grid_search=False, specific_project=None):
+def main(base_folder, model_name, task_type, grid_search=False, specific_project=None):
     """Main function to process all projects or a specific project in the base folder."""
     if use_wandb:
         wandb.init(project=f"cross_project_defect{specific_project if specific_project != None else ''}", 
@@ -261,7 +266,7 @@ def main(base_folder, model_name, task_type, perform_grid_search=False, specific
                     "base_folder": base_folder,
                     "model": model_name,
                     "task_type": task_type,
-                    "grid_search": perform_grid_search,
+                    "grid_search": grid_search,
                     "specific_project": specific_project
                 })
     
@@ -272,7 +277,7 @@ def main(base_folder, model_name, task_type, perform_grid_search=False, specific
         if os.path.isdir(project_folder):
             print(f"Processing project: {specific_project}")
             model, test_results = process_project(project_folder,
-            model_name, task_type,perform_grid_search=perform_grid_search)
+            model_name, task_type,grid_search=grid_search)
             results[specific_project] = {
                 'model': model,
                 'test_results': test_results
@@ -285,7 +290,7 @@ def main(base_folder, model_name, task_type, perform_grid_search=False, specific
             if os.path.isdir(project_folder):
                 print(f"Processing project: {project}")
                 model, test_results = process_project(project_folder,
-                model_name, task_type, perform_grid_search=perform_grid_search)
+                model_name, task_type, grid_search=grid_search)
                 results[specific_project] = {
                     'model': model,
                     'test_results': test_results

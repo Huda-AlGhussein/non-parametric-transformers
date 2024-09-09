@@ -1,0 +1,2 @@
+model,task_type,test_file,timestamp,accuracy,precision,recall,f1_score,roc_auc
+SVM,class,data_tom.csv,2024-09-03 14:08:14,0.9328743545611016,0.8718076440127436,0.9328743545611016,0.9013078136231479,0.7989107666527022
