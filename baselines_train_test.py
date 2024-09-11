@@ -348,7 +348,7 @@ def process_project_with_transfer_learning(project_folder, model_name, task_type
         #print(type(y_pred))
         
         if y_pred != None:
-            print(y_pred)
+            #print(y_probs)
             performance = evaluate_model(model, X_test, test_data[target_col], task_type,
                                           y_pred=y_pred, y_proba=y_probs)
             test_results[test_file] = performance

@@ -41,11 +41,15 @@ def get_split_train_dataset (train_data):
     return X_train_ps, Y_train_ps
 
 
-def watanabe_transform(X_train, X_test):
-    #print(X_train)
+def watanabe_transform(X_train, X_test,epsilon=1e-10):
+    #print(X_train) 
     mean_train = X_train.mean()
     mean_test = X_test.mean()
-    X_test_transformed = X_test * (mean_train / mean_test)
+    mean_test_safe = np.where(np.abs(mean_test) < epsilon, np.sign(mean_test) * epsilon, mean_test)
+
+    X_test_transformed = X_test * (mean_train / mean_test_safe)
+    # Replace any inf values in the result with 0
+    X_test_transformed = np.nan_to_num(X_test_transformed, nan=0.0, posinf=0.0, neginf=0.0)
     return X_test_transformed
 
 def cruz_transform(X_train, X_test):
@@ -74,7 +78,7 @@ def he_method(X_train_projects, X_test, y_train_projects,model, N=10, FSS=0.8):
     for i in range(len(X_train_projects)):
         p_df = X_train_projects[i]['df']
         p_name = X_train_projects[i]['name']
-        print(f'Processing {p_name} Project')
+        print(f'HE_Method Processing {p_name} Project')
         K = min(500,len(p_df), len(X_test))
         SAMtrain = p_df.sample(n=K, random_state=42)
         #SAMtest = X_test[np.random.randint(X_test.shape[0], size=K), :]
@@ -131,6 +135,12 @@ def he_method(X_train_projects, X_test, y_train_projects,model, N=10, FSS=0.8):
         pred = model.predict(X_test_stable)
         proba = model.predict_proba(X_test_stable)[:, 1]
         predictions.append(pred)
+        if np.isnan(np.min(proba)):
+            #print(X_test_stable)
+            #print(pred)
+            #print(model.predict_proba(X_test_stable))
+            #print(proba)
+            proba = np.nan_to_num(proba,nan=0.0)
         probabilities.append(proba)
     
     # Calculate average prediction scores
